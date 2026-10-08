@@ -1,6 +1,7 @@
 My personal Hyprland dotfiles for Arch Linux. 🐧
 
-A clean and minimal Wayland setup with custom bars, menus, notifications, OSD controls and everyday utilities.
+A clean and minimal Wayland setup with custom bars,
+menus, notifications, OSD controls and everyday utilities.
 
 ## ✨ Screenshots
 
@@ -56,3 +57,17 @@ git clone https://github.com/d1shburn/hyprland-dotfiles.git
 cd hyprland-dotfiles
 chmod +x install.sh
 ./install.sh
+````
+
+The installer installs the required packages and applies
+the configuration to your home directory.
+
+## 💡 Inspiration
+
+The visual style of these dotfiles is based on
+[Zproger's dotfiles for bspwm](https://github.com/Zproger/bspwm-dotfiles).
+
+The original setup was built around bspwm and Polybar.
+I recreated the visual style for Hyprland and Wayland,
+rewriting the Polybar setup in Waybar and adapting the
+configuration to the Hyprland ecosystem.
