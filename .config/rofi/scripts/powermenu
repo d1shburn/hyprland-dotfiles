@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+theme="$HOME/.config/rofi/menu.rasi"
+
+lock=$'\uf023  Lock'
+suspend=$'\uf186  Suspend'
+logout=$'\uf08b  Logout'
+reboot=$'\uf021  Reboot'
+shutdown=$'\uf011  Shutdown'
+
+confirm() {
+    ans=$(printf '%s\n' "No" "Yes" | rofi -no-config -dmenu -i -p "$1?" -theme "$theme" \
+        -theme-str 'listview { lines: 2; }')
+    [[ "$ans" == "Yes" ]]
+}
+
+chosen=$(printf '%s\n' "$lock" "$suspend" "$logout" "$reboot" "$shutdown" | \
+    rofi -no-config -dmenu -i -p "Power" -theme "$theme" \
+    -theme-str 'listview { lines: 5; }')
+
+case "$chosen" in
+    "$lock")
+        pidof hyprlock >/dev/null || setsid hyprlock >/dev/null 2>&1 &
+        ;;
+    "$suspend")
+        systemctl suspend
+        ;;
+    "$logout")
+        confirm "Logout" && loginctl terminate-user "$USER"
+        ;;
+    "$reboot")
+        confirm "Reboot" && systemctl reboot
+        ;;
+    "$shutdown")
+        confirm "Shutdown" && systemctl poweroff
+        ;;
+esac

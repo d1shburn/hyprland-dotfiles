@@ -1,0 +1,14 @@
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+
+.env
+.env.*
+!.env.example
+
+.idea/
+.vscode/
+
+Thumbs.db

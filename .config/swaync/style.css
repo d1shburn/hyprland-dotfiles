@@ -1,0 +1,298 @@
+:root {
+    --bg: #272A2B;
+    --bg-alt: #2b2f37;
+    --bg-hover: #32363f;
+
+    --text: #D9E0EE;
+    --text-muted: #adb1b9;
+
+    --accent: #7899FA;
+    --border-color: #7899FA;
+
+    --radius: 0px;
+}
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+notificationwindow,
+blankwindow {
+    background: transparent;
+}
+
+.floating-notifications {
+    background: transparent;
+}
+
+.floating-notifications .notification {
+    box-shadow: none;
+}
+
+.notification-row {
+    background: transparent;
+    outline: none;
+    margin: 4px 8px;
+}
+
+.notification-row .notification-background {
+    background: transparent;
+}
+
+.notification-row
+.notification-background
+.notification {
+    background: var(--bg);
+
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+
+    padding: 0;
+    margin: 0;
+
+    transition: none;
+}
+
+.notification-row
+.notification-background
+.notification:hover {
+    background: var(--bg-alt);
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action {
+    background: transparent;
+
+    border: none;
+    border-radius: 0;
+
+    padding: 9px 10px;
+    margin: 0;
+
+    color: var(--text);
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action:hover {
+    background: var(--bg-hover);
+}
+
+.notification-content {
+    background: transparent;
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action
+.notification-content
+.image {
+    min-width: 0;
+    min-height: 0;
+    -gtk-icon-size: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action
+.notification-content
+.app-icon {
+    min-width: 0;
+    min-height: 0;
+    -gtk-icon-size: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action
+.notification-content
+.text-box {
+    margin: 0;
+    padding: 0;
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action
+.notification-content
+.text-box
+.summary {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--accent);
+    background: transparent;
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action
+.notification-content
+.text-box
+.time {
+    font-size: 11px;
+    font-weight: normal;
+    color: var(--text-muted);
+    background: transparent;
+    margin-right: 24px;
+}
+
+.notification-row
+.notification-background
+.notification
+.notification-default-action
+.notification-content
+.text-box
+.body {
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--text);
+    background: transparent;
+}
+
+.close-button {
+    background: var(--bg-alt);
+    color: var(--text-muted);
+
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+
+    min-width: 18px;
+    min-height: 18px;
+
+    padding: 0;
+    margin: 5px;
+
+    box-shadow: none;
+}
+
+.close-button:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+}
+
+.notification-action {
+    background: var(--bg-alt);
+
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+
+    color: var(--text);
+
+    margin: 3px;
+    padding: 5px;
+}
+
+.notification-action:hover {
+    background: var(--bg-hover);
+    color: var(--accent);
+}
+
+.control-center {
+    background: var(--bg);
+
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+
+    color: var(--text);
+}
+
+.control-center .control-center-list {
+    background: transparent;
+}
+
+.control-center .control-center-list .notification {
+    box-shadow: none;
+}
+
+.control-center .control-center-list-placeholder {
+    color: var(--text-muted);
+}
+
+.widget {
+    background: var(--bg-alt);
+
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+
+    margin: 6px;
+    padding: 8px;
+}
+
+.widget-title {
+    color: var(--text);
+}
+
+.widget-title > label {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.widget-title > button {
+    background: var(--bg);
+
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+
+    color: var(--text-muted);
+
+    padding: 4px 8px;
+}
+
+.widget-title > button:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+}
+
+.widget-dnd {
+    color: var(--text);
+}
+
+.widget-dnd label {
+    color: var(--text);
+}
+
+.widget-dnd switch {
+    background: var(--bg);
+
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+}
+
+.widget-dnd switch slider {
+    background: var(--text-muted);
+    border-radius: 0;
+}
+
+.widget-dnd switch:checked {
+    background: var(--accent);
+}
+
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background: var(--border-color);
+    border-radius: 0;
+}
+
+scrollbar slider:hover {
+    background: var(--accent);
+}

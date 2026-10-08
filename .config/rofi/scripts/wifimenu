@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+theme="$HOME/.config/rofi/menu.rasi"
+lock=$'\uf023'
+dot=$'\u25cf'
+
+notify() { command -v notify-send >/dev/null && notify-send "Wi-Fi" "$1"; }
+
+if ! nmcli radio wifi | grep -q enabled; then
+    pick=$(printf '%s\n' $'\uf1eb  Turn Wi-Fi on' | rofi -no-config -dmenu -i -p "Wi-Fi" -theme "$theme")
+    [[ -n "$pick" ]] && nmcli radio wifi on
+    exit 0
+fi
+
+nmcli device wifi rescan >/dev/null 2>&1
+
+wdev=$(nmcli -t -f DEVICE,TYPE device | awk -F: '$2=="wifi"{print $1; exit}')
+active=$(nmcli -t -f ACTIVE,SSID device wifi list | awk -F: '$1=="yes"{print $2; exit}')
+
+ssids=()
+secs=()
+lines=""
+declare -A seen
+
+if [[ -n "$active" ]]; then
+    ssids+=("__disconnect__")
+    secs+=("")
+    lines+=$'\uf00d'"  Disconnect: ${active}"$'\n'
+fi
+
+while IFS=: read -r inuse signal sec ssid; do
+    [[ -z "$ssid" || -n "${seen[$ssid]}" ]] && continue
+    seen[$ssid]=1
+    ssids+=("$ssid")
+    secs+=("$sec")
+    mark="  "
+    [[ "$inuse" == "*" ]] && mark="$dot "
+    icon="  "
+    [[ -n "$sec" && "$sec" != "--" ]] && icon="$lock "
+    lines+="${mark}${icon} ${ssid}  (${signal}%)"$'\n'
+done < <(nmcli -t --escape no -f IN-USE,SIGNAL,SECURITY,SSID device wifi list)
+
+ssids+=("__off__" "__editor__")
+secs+=("" "")
+lines+=$'\uf011'"  Wi-Fi off"$'\n'
+lines+=$'\uf013'"  Advanced settings"$'\n'
+
+choice=$(printf '%s' "$lines" | rofi -no-config -dmenu -i -format i -p "Wi-Fi" -theme "$theme")
+[[ -z "$choice" ]] && exit 0
+
+ssid="${ssids[$choice]}"
+sec="${secs[$choice]}"
+
+case "$ssid" in
+    __disconnect__)
+        nmcli device disconnect "$wdev" >/dev/null 2>&1 && notify "Disconnected: $active"
+        exit 0 ;;
+    __off__)
+        nmcli radio wifi off
+        exit 0 ;;
+    __editor__)
+        exec nm-connection-editor ;;
+esac
+
+if nmcli -t -f NAME connection show | grep -Fxq "$ssid"; then
+    nmcli connection up id "$ssid" && notify "Connected: $ssid" || notify "Failed: $ssid"
+    exit 0
+fi
+
+if [[ -z "$sec" || "$sec" == "--" ]]; then
+    nmcli device wifi connect "$ssid" && notify "Connected: $ssid" || notify "Failed: $ssid"
+else
+    pass=$(rofi -no-config -dmenu -password -p "Password" -theme "$theme" \
+        -theme-str 'mainbox { children: [inputbar]; }' </dev/null)
+    [[ -z "$pass" ]] && exit 0
+    if nmcli device wifi connect "$ssid" password "$pass"; then
+        notify "Connected: $ssid"
+    else
+        nmcli connection delete id "$ssid" >/dev/null 2>&1
+        notify "Wrong password or failed: $ssid"
+    fi
+fi

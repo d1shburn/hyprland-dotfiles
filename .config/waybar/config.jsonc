@@ -1,0 +1,169 @@
+{
+    "layer": "top",
+    "position": "top",
+
+    "height": 30,
+    "margin-top": 7,
+    "margin-left": 20,
+    "margin-right": 20,
+
+    "spacing": 0,
+
+    "modules-left": [
+        "custom/arch",
+        "custom/workspaces-round-left",
+        "hyprland/workspaces",
+        "custom/workspaces-round-right"
+    ],
+
+    "modules-center": [
+        "custom/gpu-temp",
+        "custom/space",
+        "custom/space",
+        "memory",
+        "custom/space",
+        "custom/space",
+        "cpu"
+    ],
+
+    "modules-right": [
+        "pulseaudio",
+        "hyprland/language",
+        "keyboard-state",
+        "custom/round-left",
+        "clock",
+        "custom/round-right",
+        "custom/space",
+        "network",
+        "custom/right-space",
+        "custom/power"
+    ],
+
+    "custom/arch": {
+        "format": "\uF303",
+        "tooltip": false,
+        "on-click": "rofi -show drun"
+    },
+
+    "custom/workspaces-round-left": {
+        "format": " ",
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "active-only": false,
+        "sort-by-number": true,
+        "format": "{name}",
+
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+
+    "custom/workspaces-round-right": {
+        "format": " ",
+        "tooltip": false
+    },
+
+    "custom/gpu-temp": {
+        "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits",
+        "interval": 2,
+        "format": "<span color='#a4ebf3'>\uDB81\uDF17</span> {}°C",
+        "tooltip": false
+    },
+
+    "memory": {
+        "interval": 2,
+        "format": "\uDB80\uDF5B {used:0.1f}G",
+        "tooltip": true,
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
+    },
+
+    "cpu": {
+        "interval": 2,
+        "format": "\uF2DB {usage}%",
+        "tooltip": true,
+        "tooltip-format": "CPU: {usage}%"
+    },
+
+    "pulseaudio": {
+        "format": "<span color='#d35f5e'>{icon}</span>  {volume}%",
+        "format-muted": "󰖁",
+        "format-icons": {
+            "default": ["󰖀", "󰕾"]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "tooltip": false
+    },
+
+    "hyprland/language": {
+        "format": "{}",
+        "format-us": "us",
+        "format-en": "us",
+        "format-ru": "ru",
+        "tooltip": false
+    },
+
+    "keyboard-state": {
+        "capslock": true,
+        "device-path": "/dev/input/by-id/usb-Keychron_Keychron_V3_Max-event-kbd",
+        "format": "{icon}",
+        "format-icons": {
+            "locked": "!",
+            "unlocked": ""
+        },
+        "tooltip": false
+    },
+
+    "custom/round-left": {
+        "format": " ",
+        "tooltip": false
+    },
+
+    "clock": {
+        "interval": 60,
+        "format": "\uF017  {:%H:%M %p}",
+        "format-alt": "<span color='#61afef'>\uF073  {:%a, %d %b %Y}</span>",
+        "tooltip": false
+    },
+
+    "custom/round-right": {
+        "format": " ",
+        "tooltip": false
+    },
+
+    "network": {
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-disconnected": "󰖪",
+
+        "tooltip-format-wifi": "{essid}\n{ipaddr}\nSignal: {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+
+        "on-click": "/home/user/.config/rofi/scripts/wifimenu",
+        "on-click-right": "nm-connection-editor"
+    },
+
+    "custom/right-space": {
+        "format": " ",
+        "tooltip": false
+    },
+
+    "custom/power": {
+        "format": "\uF011",
+        "on-click": "/home/user/.config/rofi/scripts/powermenu",
+        "tooltip": false
+    },
+
+    "custom/space": {
+        "format": " ",
+        "tooltip": false
+    }
+}
